@@ -167,7 +167,7 @@ class PropertyOutput(BaseOutput):
         # Checks as soon as possible if some asked-for properties are
         # missing or mispelled
         self.system = system
-        for what in self.outlist:
+        for what in sorted(self.outlist):
             key = getkey(what)
             if not key in list(system.properties.property_dict.keys()):
                 print("Computable properties list: ", list(system.properties.property_dict.keys()))
@@ -178,7 +178,7 @@ class PropertyOutput(BaseOutput):
     def print_header(self):
         # print nice header if information is available on the properties
         icol = 1
-        for what in self.outlist:
+        for what in sorted(self.outlist):
             ohead = "# "
             key = getkey(what)
             prop = self.system.properties.property_dict[key]
@@ -210,7 +210,7 @@ class PropertyOutput(BaseOutput):
         if not (self.system.simul.step + 1) % self.stride == 0:
             return
         self.out.write("  ")
-        for what in self.outlist:
+        for what in sorted(self.outlist):
             try:
                 quantity, dimension, unit = self.system.properties[what]
                 if dimension != "" and unit != "":

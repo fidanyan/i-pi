@@ -263,7 +263,7 @@ class Input(object):
         """
 
         rstr = indent + "<" + name;
-        for a in self.attribs:
+        for a in sorted(self.attribs):
             # only write out attributes that are not defaults
             # have a very simple way to check whether they actually add something:
             # we compare with the string that would be output if the argument was set
@@ -274,7 +274,7 @@ class Input(object):
                 rstr += " " + outstr
         rstr += ">"
         rstr += text
-        for f in self.instancefields:
+        for f in sorted(self.instancefields):
             # only write out fields that are not defaults
 
             defstr = self.__dict__[f]._defwrite.replace("%%NAME%%", f)

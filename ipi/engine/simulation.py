@@ -246,7 +246,7 @@ class Simulation(dobject):
             # must use multi-threading to avoid blocking in multi-system runs with WTE
             if self.threading:
                 stepthreads = []
-                for o in self.outputs:
+                for o in sorted(self.outputs,  key=lambda x: x.__class__.__name__):
                     st = threading.Thread(target=o.write, name=o.filename)
                     st.daemon = True
                     st.start()
@@ -257,7 +257,7 @@ class Simulation(dobject):
                         # This is necessary as join() without timeout prevents main from receiving signals.
                         st.join(2.0)
             else:
-                for o in self.outputs:
+                for o in sorted(self.outputs,  key=lambda x: x.__class__.__name__):
                     o.write()  # threaded output seems to cause random hang-ups. should make things properly thread-safe
 
             self.step = 0
@@ -317,7 +317,7 @@ class Simulation(dobject):
 
             if self.threading:
                 stepthreads = []
-                for o in self.outputs:
+                for o in sorted(self.outputs,  key=lambda x: x.__class__.__name__):
                     st = threading.Thread(target=o.write, name=o.filename)
                     st.daemon = True
                     st.start()
@@ -328,7 +328,7 @@ class Simulation(dobject):
                         # This is necessary as join() without timeout prevents main from receiving signals.
                         st.join(2.0)
             else:
-                for o in self.outputs:
+                for o in sorted(self.outputs,  key=lambda x: x.__class__.__name__):
                     o.write()
 
             steptime += time.time()

@@ -201,14 +201,14 @@ def xml_write(xml, name="", indent="", text=""):
     rstr = ""
     if not name == "":
         rstr = indent + "<" + name;
-        for a, v in xml.attribs.items():
+        for a, v in sorted(xml.attribs.items()):
             rstr += " " + a + "='" + v + "'"
         rstr += ">"
 
     rstr += text.strip()
 
     inline = False
-    for a, v in xml.fields:
+    for a, v in sorted(xml.fields):
         if a == "_text":
             rstr += v.strip()
             if v.strip() != "": inline = True
